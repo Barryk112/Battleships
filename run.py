@@ -14,6 +14,20 @@ class Board:
         self.guesses = []
         self.ships = []
 
+    def print(self):
+        for row in self.board:
+            print(" ".join(row))
+
+
+def play_game(player_board, computer_board):
+    print(f"{player_board.name}'s board")
+    player_board.print()
+
+    print("+" * 20)
+
+    print(f"{computer_board.name}'s board")
+    computer_board.print()
+
 
 def new_game():
     """
@@ -34,5 +48,7 @@ def new_game():
 
     player_board = Board(size, num_ships, player_name, type="player")
     computer_board = Board(size, num_ships, "Computer", type="computer")
+
+    play_game(player_board, computer_board)
 
 new_game()
