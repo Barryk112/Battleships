@@ -28,7 +28,11 @@ def new_game():
     print("  Welcome to BATTLESHIPS")
     print(f"  Board size: {size}\n  Number of ships: {num_ships}")
     print("  Top left corner is row: 0, column: 0")
-
     print("-" * 40)
+    player_name = input("What would you like to me called? \n")
+    print("-" * 40)
+
+    player_board = Board(size, num_ships, player_name, type="player")
+    computer_board = Board(size, num_ships, "Computer", type="computer")
 
 new_game()
