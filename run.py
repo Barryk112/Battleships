@@ -20,6 +20,9 @@ class Board:
 
 
 def play_game(player_board, computer_board):
+    """
+    Starts the game and displays player and computers boards
+    """
     print(f"{player_board.name}'s board")
     player_board.print()
 
