@@ -15,3 +15,20 @@ class Board:
         self.ships = []
 
 
+def new_game():
+    """
+    Starts a new game.
+    Sets the board size, number of ships and resets the scores
+    """
+    size = 5
+    num_ships = 4
+    scores["player"] = 0
+    scores["computer"] = 0
+    print("=" * 40)
+    print("  Welcome to BATTLESHIPS")
+    print(f"  Board size: {size}\n  Number of ships: {num_ships}")
+    print("  Top left corner is row: 0, column: 0")
+
+    print("-" * 40)
+
+new_game()
