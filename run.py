@@ -30,12 +30,12 @@ def random_point(size):
 
 def populate_board(board):
     """
-    Populates game board with ships marked as "X"
+    Populates game board with ships marked as "@"
     """
     x, y = random_point(board.size), random_point(board.size)
-    while board.board[x][y] == "X":
+    while board.board[x][y] == "@":
         x, y = random_point(board.size), random_point(board.size)
-    board.board[x][y] = "X"
+    board.board[x][y] = "@"
 
 
 
