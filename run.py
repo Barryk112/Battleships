@@ -2,6 +2,8 @@ from random import randint
 
 scores = {"player": 0, "computer": 0}
 
+
+
 class Board:
     """
     Main class for board.
@@ -20,12 +22,30 @@ class Board:
         for row in self.board:
             print(" ".join(row))
 
+
+
 def random_point(size):
     """
     Function that returns a random int between 0 and size 
     of the board
     """
     return randint(0, size - 1)
+
+
+
+def validate(choice, board_size):
+    """
+    Validates players input choice for rows and columns
+    """
+    try:
+        choice = int(choice)
+        if choice > board_size:
+            raise ValueError("Your choice must be equal or less than board size")
+            return False
+    except ValueError:
+        print("Must be an integer")
+        return False
+    return True
 
 
 def populate_board(board):
@@ -39,6 +59,24 @@ def populate_board(board):
 
 
 
+def make_guess(board):
+    """
+    Takes in players guesses to place a missile on the board 
+    and generates the computers guess
+    """
+    if board.type == "computer":
+        row = int(input(f"Please enter a row between 1-{board.size}\n"))
+        
+        column = int(input(f"Please enter a column between 1-{board.size}\n"))
+        
+        board.board[row][column] = "-"
+        
+        return board
+    else:
+        row, column = random_point(board.size), random_point(board.size)
+        board.board[row][column] = "-"
+        return board
+
 
 def play_game(player_board, computer_board):
     """
@@ -51,6 +89,14 @@ def play_game(player_board, computer_board):
 
     print(f"{computer_board.name}'s board")
     computer_board.print()
+
+    make_guess(computer_board)
+    make_guess(player_board)
+
+    print("-" * 40)
+
+    play_game(player_board, computer_board)
+
 
 
 def new_game():
@@ -79,6 +125,7 @@ def new_game():
         populate_board(computer_board)
 
     play_game(player_board, computer_board)
+
 
 new_game()
 
