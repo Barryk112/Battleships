@@ -29,6 +29,13 @@ def random_point(size):
 
 
 def populate_board(board):
+    """
+    Populates game board with ships marked as "X"
+    """
+    x, y = random_point(board.size), random_point(board.size)
+    while board.board[x][y] == "X":
+        x, y = random_point(board.size), random_point(board.size)
+    board.board[x][y] = "X"
 
 
 
@@ -66,6 +73,10 @@ def new_game():
 
     player_board = Board(size, num_ships, player_name, type="player")
     computer_board = Board(size, num_ships, "Computer", type="computer")
+
+    for i in range(num_ships):
+        populate_board(player_board)
+        populate_board(computer_board)
 
     play_game(player_board, computer_board)
 
