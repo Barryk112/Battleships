@@ -1,3 +1,5 @@
+from random import randint
+
 scores = {"player": 0, "computer": 0}
 
 class Board:
@@ -18,6 +20,18 @@ class Board:
         for row in self.board:
             print(" ".join(row))
 
+def random_point(size):
+    """
+    Function that returns a random int between 0 and size 
+    of the board
+    """
+    return randint(0, size - 1)
+
+
+def populate_board(board):
+
+
+
 
 def play_game(player_board, computer_board):
     """
@@ -37,6 +51,7 @@ def new_game():
     Starts a new game.
     Sets the board size, number of ships and resets the scores
     """
+    
     size = 5
     num_ships = 4
     scores["player"] = 0
@@ -55,3 +70,4 @@ def new_game():
     play_game(player_board, computer_board)
 
 new_game()
+
