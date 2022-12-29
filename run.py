@@ -65,16 +65,28 @@ def make_guess(board):
     and generates the computers guess
     """
     if board.type == "computer":
-        row = int(input(f"Please enter a row between 1-{board.size}\n"))
+        row = int(input(f"Please enter a row between 0-{board.size - 1}\n"))
         
-        column = int(input(f"Please enter a column between 1-{board.size}\n"))
-        
-        board.board[row][column] = "-"
+        column = int(input(f"Please enter a column between 0-{board.size - 1}\n"))
+
+        if board.board[row][column] == ".":
+            print("You missed! Try again")
+            board.board[row][column] = "-"
+        elif board.board[row][column] == "-":
+            print("You missed! You tried there already, you must pay attention!")
+        elif board.board[row][column] == "@":
+            print("HIT! well done")
+            board.board[row][column] = "X"
         
         return board
     else:
         row, column = random_point(board.size), random_point(board.size)
-        board.board[row][column] = "-"
+        if board.board[row][column] == "@":
+            print("You have lost a ship!")
+            board.board[row][column] = "X"
+        else:
+            board.board[row][column] == "-"
+        
         return board
 
 
