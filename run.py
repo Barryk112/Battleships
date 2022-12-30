@@ -3,7 +3,6 @@ from random import randint
 scores = {"player": 0, "computer": 0}
 
 
-
 class Board:
     """
     Main class for board.
@@ -23,7 +22,6 @@ class Board:
             print(" ".join(row))
 
 
-
 def random_point(size):
     """
     Function that returns a random int between 0 and size 
@@ -32,21 +30,21 @@ def random_point(size):
     return randint(0, size - 1)
 
 
-
-def validate(choice, board_size):
+def validate(placement, board_size):
     """
     Validates players input choice for rows and columns
-    """
-    try:
-        choice = int(choice)
-        if choice > board_size:
-            raise ValueError("Your choice must be equal or less than board size")
-            return False
-    except ValueError:
-        print("Must be an integer")
-        return False
-    return True
-
+    """  
+    while True:
+        try:
+            choice = int(input(f"Please enter a {placement}\n"))
+            if choice <= board_size-1:
+                print(f"You choose {choice}")
+                return choice
+            else:
+                print(f"Please enter a number between 0-{board_size-1}")
+        except:
+            print(f"Please enter a number between 0-{board_size-1}")           
+      
 
 def populate_board(board):
     """
@@ -58,22 +56,23 @@ def populate_board(board):
     board.board[x][y] = "@"
 
 
-
 def make_guess(board):
     """
     Takes in players guesses to place a missile on the board 
     and generates the computers guess
     """
     if board.type == "computer":
-        row = int(input(f"Please enter a row between 0-{board.size - 1}\n"))
-        
-        column = int(input(f"Please enter a column between 0-{board.size - 1}\n"))
+        row = "row"
+        row = validate(row, board.size)
+
+        column = "column"
+        column = validate(column, board.size)
 
         if board.board[row][column] == ".":
             print("You missed! Try again")
             board.board[row][column] = "-"
         elif board.board[row][column] == "-":
-            print("You missed! You tried there already, you must pay attention!")
+            print("You missed! You tried there already. Pay attention")
         elif board.board[row][column] == "@":
             print("HIT! well done")
             board.board[row][column] = "X"
@@ -110,7 +109,6 @@ def play_game(player_board, computer_board):
     play_game(player_board, computer_board)
 
 
-
 def new_game():
     """
     Starts a new game.
@@ -140,4 +138,3 @@ def new_game():
 
 
 new_game()
-
