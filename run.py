@@ -56,7 +56,7 @@ def populate_board(board):
     board.board[x][y] = "@"
 
 
-def make_guess(board):
+def make_guess(board, display_board):
     """
     Takes in players guesses to place a missile on the board
     and generates the computers guess
@@ -72,12 +72,14 @@ def make_guess(board):
         if board.board[row][column] == ".":
             print("You missed! Try again")
             board.board[row][column] = "-"
+            display_board.board[row][column] = "-"
         elif board.board[row][column] == "-":
             print("You missed! You tried there already. Pay attention")
         elif board.board[row][column] == "@":
             print("HIT! well done")
-            board.board[row][column] = "X"        
-        return board
+            board.board[row][column] = "X"
+            display_board.board[row][column] = "X"   
+        return board, display_board
 
     else:
         row, column = random_point(board.size), random_point(board.size)
@@ -86,10 +88,10 @@ def make_guess(board):
             board.board[row][column] = "X"
         else:
             board.board[row][column] = "-"
-        return board
+        return board, display_board
 
 
-def play_game(player_board, computer_board, guesses):
+def play_game(player_board, computer_board, display_board, guesses):
     """
     Starts the game and displays player and computers boards.
     Keeps count of guesses and ends game when guesses goes to 0
@@ -101,10 +103,10 @@ def play_game(player_board, computer_board, guesses):
         print("+" * 20)
 
         print(f"{computer_board.name}'s board")
-        computer_board.print()
+        display_board.print()
 
-        make_guess(computer_board)
-        make_guess(player_board)
+        make_guess(computer_board, display_board)
+        make_guess(player_board, display_board)
 
         guesses -= 1
 
@@ -117,7 +119,7 @@ def play_game(player_board, computer_board, guesses):
             print("GAME OVER")
             exit()
 
-        play_game(player_board, computer_board, guesses)
+        play_game(player_board, computer_board, display_board, guesses)
 
 
 def new_game():
@@ -128,12 +130,13 @@ def new_game():
   
     size = 5
     num_ships = 4
-    guesses = 3
+    guesses = 10
     scores["player"] = 0
     scores["computer"] = 0
     print("=" * 40)
     print("  Welcome to BATTLESHIPS")
     print(f"  Board size: {size}\n  Number of ships: {num_ships}")
+    print(f"  Number of guesses: {guesses}")
     print("  Top left corner is row: 0, column: 0")
     print("-" * 40)
     player_name = input("What would you like to me called? \n")
@@ -141,12 +144,13 @@ def new_game():
 
     player_board = Board(size, num_ships, player_name, type="player")
     computer_board = Board(size, num_ships, "Computer", type="computer")
+    display_board = Board(size, num_ships, "display", type="display")
 
     for i in range(num_ships):
         populate_board(player_board)
         populate_board(computer_board)
 
-    play_game(player_board, computer_board, guesses)
+    play_game(player_board, computer_board, display_board, guesses)
 
 
 new_game()
