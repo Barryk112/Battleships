@@ -24,7 +24,7 @@ class Board:
 
 def random_point(size):
     """
-    Function that returns a random int between 0 and size 
+    Function that returns a random int between 0 and size
     of the board
     """
     return randint(0, size - 1)
@@ -33,7 +33,7 @@ def random_point(size):
 def validate(placement, board_size):
     """
     Validates players input choice for rows and columns
-    """  
+    """
     while True:
         try:
             choice = int(input(f"Please enter a {placement}\n"))
@@ -43,8 +43,8 @@ def validate(placement, board_size):
             else:
                 print(f"Please enter a number between 0-{board_size-1}")
         except:
-            print(f"Please enter a number between 0-{board_size-1}")           
-      
+            print(f"Please enter a number between 0-{board_size-1}")
+
 
 def populate_board(board):
     """
@@ -58,9 +58,10 @@ def populate_board(board):
 
 def make_guess(board):
     """
-    Takes in players guesses to place a missile on the board 
+    Takes in players guesses to place a missile on the board
     and generates the computers guess
     """
+
     if board.type == "computer":
         row = "row"
         row = validate(row, board.size)
@@ -75,38 +76,48 @@ def make_guess(board):
             print("You missed! You tried there already. Pay attention")
         elif board.board[row][column] == "@":
             print("HIT! well done")
-            board.board[row][column] = "X"
-        
+            board.board[row][column] = "X"        
         return board
+
     else:
         row, column = random_point(board.size), random_point(board.size)
         if board.board[row][column] == "@":
             print("You have lost a ship!")
             board.board[row][column] = "X"
         else:
-            board.board[row][column] == "-"
-        
+            board.board[row][column] = "-"
         return board
 
 
-def play_game(player_board, computer_board):
+def play_game(player_board, computer_board, guesses):
     """
-    Starts the game and displays player and computers boards
+    Starts the game and displays player and computers boards.
+    Keeps count of guesses and ends game when guesses goes to 0
     """
-    print(f"{player_board.name}'s board")
-    player_board.print()
+    while guesses > 0:
+        print(f"{player_board.name}'s board")
+        player_board.print()
 
-    print("+" * 20)
+        print("+" * 20)
 
-    print(f"{computer_board.name}'s board")
-    computer_board.print()
+        print(f"{computer_board.name}'s board")
+        computer_board.print()
 
-    make_guess(computer_board)
-    make_guess(player_board)
+        make_guess(computer_board)
+        make_guess(player_board)
 
-    print("-" * 40)
+        guesses -= 1
 
-    play_game(player_board, computer_board)
+        print("-" * 40)
+
+        print(f"You have {guesses} guesses left")
+
+        if guesses == 0:
+            print("You have run out of guesses")
+            print("GAME OVER")
+            exit()
+
+        play_game(player_board, computer_board, guesses)
 
 
 def new_game():
@@ -114,9 +125,10 @@ def new_game():
     Starts a new game.
     Sets the board size, number of ships and resets the scores
     """
-    
+  
     size = 5
     num_ships = 4
+    guesses = 3
     scores["player"] = 0
     scores["computer"] = 0
     print("=" * 40)
@@ -134,7 +146,7 @@ def new_game():
         populate_board(player_board)
         populate_board(computer_board)
 
-    play_game(player_board, computer_board)
+    play_game(player_board, computer_board, guesses)
 
 
 new_game()
