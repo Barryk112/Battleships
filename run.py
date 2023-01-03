@@ -29,6 +29,17 @@ def random_point(size):
     """
     return randint(0, size - 1)
 
+def count_hit_ships(board):
+    """
+    Counts amount of hit ships on a board
+    """
+    count = 0
+    for row in board.board:
+        for column in row:
+            if column == "X":
+                count += 1
+    return count
+
 
 def validate(placement, board_size):
     """
@@ -103,7 +114,7 @@ def play_game(player_board, computer_board, display_board, guesses):
         print("+" * 20)
 
         print(f"{computer_board.name}'s board")
-        display_board.print()
+        computer_board.print()
 
         make_guess(computer_board, display_board)
         make_guess(player_board, display_board)
@@ -114,8 +125,19 @@ def play_game(player_board, computer_board, display_board, guesses):
 
         print(f"You have {guesses} guesses left")
 
+        player_hits = count_hit_ships(computer_board)
+        computer_hits = count_hit_ships(player_board)
+
         if guesses == 0:
             print("You have run out of guesses")
+            print("GAME OVER")
+            exit()
+        elif player_hits == computer_board.num_ships:
+            print("***You beat the computer!***")
+            print("GAME OVER")
+            exit()
+        elif computer_hits == player_board.num_ships:
+            print("***You lost!***")
             print("GAME OVER")
             exit()
 
