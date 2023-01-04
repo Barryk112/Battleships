@@ -81,6 +81,3 @@ This project was deployed using Code Institute mock terminal for Heroku.
 ## Credits 
 - Code Institute for the deployment terminal
 - Wikipedia for details on the battleship game
-
-
- 
