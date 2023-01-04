@@ -1,11 +1,9 @@
 from random import randint
 
-scores = {"player": 0, "computer": 0}
-
 
 class Board:
     """
-    Main class for board.
+    Main class for  the game board.
     """
     def __init__(self, size, num_ships, name, type):
         self.size = size
@@ -25,14 +23,14 @@ class Board:
 def random_point(size):
     """
     Function that returns a random int between 0 and size
-    of the board
+    of the board.
     """
     return randint(0, size - 1)
 
 
 def count_hit_ships(board):
     """
-    Counts amount of hit ships on a board
+    Counts amount of hit ships on a board.
     """
     count = 0
     for row in board.board:
@@ -44,7 +42,7 @@ def count_hit_ships(board):
 
 def validate(placement, board_size):
     """
-    Validates players input choice for rows and columns
+    Validates players input choice for rows and columns.
     """
     while True:
         try:
@@ -54,13 +52,13 @@ def validate(placement, board_size):
                 return choice
             else:
                 print(f"Please enter a number between 0-{board_size-1}")
-        except ValueError():
+        except ValueError:
             print(f"Please enter a number between 0-{board_size-1}")
 
 
 def populate_board(board):
     """
-    Populates game board with ships marked as "@"
+    Populates game board with ships marked as "@".
     """
     x, y = random_point(board.size), random_point(board.size)
     while board.board[x][y] == "@":
@@ -70,8 +68,8 @@ def populate_board(board):
 
 def make_guess(board, display_board):
     """
-    Takes in players guesses to place a missile on the board
-    and generates the computers guess
+    Takes in players guesses to place a missile on the board,
+    generates the computers guess and updates the display board.
     """
 
     if board.type == "computer":
@@ -90,7 +88,7 @@ def make_guess(board, display_board):
         elif board.board[row][column] == "@":
             print("HIT! well done")
             board.board[row][column] = "X"
-            display_board.board[row][column] = "X"   
+            display_board.board[row][column] = "X"
         return board, display_board
 
     else:
@@ -107,6 +105,7 @@ def play_game(player_board, computer_board, display_board, guesses):
     """
     Starts the game and displays player and computers boards.
     Keeps count of guesses and ends game when guesses goes to 0
+    or when all ships are destroyed.
     """
     while guesses > 0:
         print(f"{player_board.name}'s board")
@@ -146,13 +145,11 @@ def play_game(player_board, computer_board, display_board, guesses):
 def new_game():
     """
     Starts a new game.
-    Sets the board size, number of ships and resets the scores
+    Sets the board size, number of ships and guesses.
     """
-  
+
     num_ships = 4
     guesses = 10
-    scores["player"] = 0
-    scores["computer"] = 0
     print("=" * 40)
     print("  *** Welcome to BATTLESHIPS ***")
     print("=" * 40)
