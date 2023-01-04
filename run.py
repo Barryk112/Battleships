@@ -29,6 +29,7 @@ def random_point(size):
     """
     return randint(0, size - 1)
 
+
 def count_hit_ships(board):
     """
     Counts amount of hit ships on a board
@@ -53,7 +54,7 @@ def validate(placement, board_size):
                 return choice
             else:
                 print(f"Please enter a number between 0-{board_size-1}")
-        except:
+        except ValueError():
             print(f"Please enter a number between 0-{board_size-1}")
 
 
@@ -114,14 +115,12 @@ def play_game(player_board, computer_board, display_board, guesses):
         print("+" * 20)
 
         print(f"{computer_board.name}'s board")
-        computer_board.print()
+        display_board.print()
 
         make_guess(computer_board, display_board)
         make_guess(player_board, display_board)
 
         guesses -= 1
-
-        print("-" * 40)
 
         print(f"You have {guesses} guesses left")
 
@@ -155,9 +154,11 @@ def new_game():
     scores["player"] = 0
     scores["computer"] = 0
     print("=" * 40)
-    print("  Welcome to BATTLESHIPS")
+    print("  *** Welcome to BATTLESHIPS ***")
+    print("=" * 40)
     while True:
         try:
+            print("Recommended board size: 5")
             size = int(input("Please enter the board size\n"))
             break
         except ValueError:
@@ -165,6 +166,10 @@ def new_game():
     print(f"  Board size: {size}\n  Number of ships: {num_ships}")
     print(f"  Number of guesses: {guesses}")
     print("  Top left corner is row: 0, column: 0")
+    print("-" * 40)
+    print("@ = ship")
+    print("X = sunk ship")
+    print("- = missed guess")
     print("-" * 40)
     player_name = input("What would you like to me called? \n")
     print("-" * 40)
