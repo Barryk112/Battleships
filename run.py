@@ -150,13 +150,18 @@ def new_game():
     Sets the board size, number of ships and resets the scores
     """
   
-    size = 5
     num_ships = 4
     guesses = 10
     scores["player"] = 0
     scores["computer"] = 0
     print("=" * 40)
     print("  Welcome to BATTLESHIPS")
+    while True:
+        try:
+            size = int(input("Please enter the board size\n"))
+            break
+        except ValueError:
+            print("Invalid input. Please try again")
     print(f"  Board size: {size}\n  Number of ships: {num_ships}")
     print(f"  Number of guesses: {guesses}")
     print("  Top left corner is row: 0, column: 0")
